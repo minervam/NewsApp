@@ -1,5 +1,4 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -9,9 +8,9 @@
         android:id="@+id/image"
         android:layout_width="@dimen/image_width"
         android:layout_height="@dimen/image_height"
-        android:scaleType="centerCrop"
         android:contentDescription="@string/news_image"
-        android:cropToPadding="false" />
+        android:cropToPadding="false"
+        android:scaleType="centerCrop" />
 
     <LinearLayout
         android:layout_width="0dp"
@@ -27,12 +26,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/text_padding"
-            android:background="#C5CAE9"
+            android:background="@color/news_list_textBackground"
             android:ellipsize="end"
             android:fontFamily="sans-serif-medium"
             android:maxLines="1"
             android:textAllCaps="true"
-            android:textColor="#3F51B5"
+            android:textColor="@color/news_list_sectionText"
             android:textSize="@dimen/section_textSize"
             tools:text="Business" />
 
@@ -43,7 +42,7 @@
             android:layout_marginRight="@dimen/list_marginRight"
             android:ellipsize="end"
             android:maxLines="2"
-            android:textColor="#212121"
+            android:textColor="@color/news_list_titleText"
             android:textSize="@dimen/title_textSize"
             tools:text="Long placeholder location that should wrap to more than 2 lines of text" />
 
@@ -56,21 +55,19 @@
 
             <TextView
                 android:id="@+id/contributor"
+                style="@style/OtherText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textColor="#757575"
-                android:textSize="@dimen/info_textSize"
                 tools:text="William Tell" />
 
             <TextView
                 android:id="@+id/date"
+                style="@style/OtherText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/list_marginRight"
                 android:layout_weight="0"
-                android:textColor="#757575"
-                android:textSize="@dimen/info_textSize"
                 tools:text="Mar 6, 2010" />
 
         </LinearLayout>

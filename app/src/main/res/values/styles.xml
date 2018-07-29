@@ -11,4 +11,10 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!-- Style for Other Text at the bottom of the News Title [CHAR LIMIT=NONE] -->
+        <style name="OtherText" parent="TextAppearance.AppCompat">
+            <item name="android:textColor">@color/news_list_otherText</item>
+            <item name="android:textSize">10sp</item>
+        </style>
+
 </resources>

@@ -5,4 +5,15 @@
     <color name="colorAccent">#FF5722</color>
     <color name="background_color">#000000</color>
 
+    <!-- List Section Background [CHAR LIMIT=NONE] -->
+    <color name="news_list_textBackground">#C5CAE9</color>
+
+    <!-- List Section Text Color [CHAR LIMIT=NONE] -->
+    <color name="news_list_sectionText">#3F51B5</color>
+
+    <!-- List Title Text Color [CHAR LIMIT=NONE] -->
+    <color name="news_list_titleText">#212121</color>
+
+    <!-- List Other Text Color [CHAR LIMIT=NONE] -->
+    <color name="news_list_otherText">#757575</color>
 </resources>
