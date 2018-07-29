@@ -4,16 +4,19 @@ import android.app.LoaderManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toolbar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +29,7 @@ public class NewsActivity extends AppCompatActivity
     /**
      * URL for the news data from the Guardian dataset
      */
-    private static final String GUARDIAN_REQUEST_URL = "https://content.guardianapis.com/search?tag=type%2Farticle&from-date=2018-01-01&order-by=newest&show-tags=contributor&show-fields=thumbnail&q=silicon%20valley&api-key=f5059fad-0158-4211-9140-db20051713d3";
+    private static final String GUARDIAN_REQUEST_URL = "https://content.guardianapis.com/search?&q=tech&api-key=f5059fad-0158-4211-9140-db20051713d3&show-fields=thumbnail&show-tags=contributor";
 
     /**
      * Constant value for the news loader ID.
@@ -106,8 +109,37 @@ public class NewsActivity extends AppCompatActivity
 
     @Override
     public Loader<List<News>> onCreateLoader(int i, Bundle bundle) {
-        //new loader for the given URL
-        return new NewsLoader(this, GUARDIAN_REQUEST_URL);
+
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+        // getString retrieves a String value from the preferences.
+        // The second parameter is the default value for this preference.
+        String search = sharedPrefs.getString(
+                getString(R.string.settings_search_key),
+                getString(R.string.settings_search_default));
+
+        String orderBy = sharedPrefs.getString(
+                getString(R.string.settings_order_by_key),
+                getString(R.string.settings_order_by_default));
+
+        // parse breaks apart the URI string that's passed into its parameter
+        Uri baseUri = Uri.parse(GUARDIAN_REQUEST_URL);
+
+        // this prepares the baseUri that we just parsed so we can add query parameters to it
+        Uri.Builder uriBuilder = baseUri.buildUpon();
+
+        // Append query parameter and its value. For example, the `q=technology`
+        if (!search.equals("")) {
+            uriBuilder.appendQueryParameter("q", search);
+            uriBuilder.appendQueryParameter("order-by", orderBy);
+        }
+        if (search.equals("")) {
+            uriBuilder.appendQueryParameter("q", "technology");
+            uriBuilder.appendQueryParameter("order-by", orderBy);
+        }
+
+        //Return the completed uri
+        return new NewsLoader(this, uriBuilder.toString());
     }
 
     @Override
@@ -133,5 +165,24 @@ public class NewsActivity extends AppCompatActivity
     public void onLoaderReset(Loader<List<News>> loader) {
         // Loader reset, so we can clear out our existing data.
         mAdapter.clear();
+    }
+
+    @Override
+    // This method initialize the contents of the Activity's options menu.
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the Options Menu we specified in XML
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            Intent settingsIntent = new Intent(this, SettingsActivity.class);
+            startActivity(settingsIntent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -5,6 +5,7 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="image_width">120dp</dimen>
     <dimen name="image_height">100dp</dimen>
+    <dimen name="image_height2">120dp</dimen>
     <dimen name="text_padding">5dp</dimen>
     <dimen name="section_textSize">12sp</dimen>
     <dimen name="title_textSize">14sp</dimen>
